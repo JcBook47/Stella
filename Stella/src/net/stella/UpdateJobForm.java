@@ -7,9 +7,11 @@ import java.time.LocalDate;
 
 public class UpdateJobForm extends JFrame {
     private JobDAO jobDAO;
+    private StellaUI mainUI;
 
-    public UpdateJobForm(JobDAO jobDAO) {
+    public UpdateJobForm(JobDAO jobDAO, StellaUI mainUI) {
         this.jobDAO = jobDAO;
+        this.mainUI = mainUI;
 
         setTitle("Update Job");
         setSize(300, 400);
@@ -23,6 +25,7 @@ public class UpdateJobForm extends JFrame {
         JTextField locationField = new JTextField();
         JTextField contactInfoField = new JTextField();
         JComboBox<JobStatus> statusComboBox = new JComboBox<>(JobStatus.values());
+        JTextField estimatorField = new JTextField();
 
         add(new JLabel("Job ID:"));
         add(jobIdField);
@@ -38,6 +41,8 @@ public class UpdateJobForm extends JFrame {
         add(contactInfoField);
         add(new JLabel("Status:"));
         add(statusComboBox);
+        add(new JLabel("Estimator:"));
+        add(estimatorField);
 
         JButton updateButton = new JButton("Update Job");
         add(new JLabel()); // Empty cell
@@ -55,8 +60,10 @@ public class UpdateJobForm extends JFrame {
                     existingJob.setLocation(locationField.getText());
                     existingJob.setContactInfo(contactInfoField.getText());
                     existingJob.setStatus((JobStatus) statusComboBox.getSelectedItem());
+                    existingJob.setEstimator(estimatorField.getText());
 
                     jobDAO.updateJob(existingJob);
+                    mainUI.updateJobTable();
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Job not found!");

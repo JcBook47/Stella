@@ -11,11 +11,12 @@ public class Job {
 	private String location;
 	private String contactInfo;
 	private JobStatus status;
+	private String estimator;
 	
 	// Constructors, getters, and setters
 	
 	public Job(String string, String string2, String string3, LocalDate of, String string4, String string5,
-			JobStatus receivedJobRequest) {
+			JobStatus receivedJobRequest, String selectedEstimator) {
 		// TODO Auto-generated constructor stub
 		this.jobId = string;
 		this.clientName = string2;
@@ -24,6 +25,7 @@ public class Job {
 		this.location = string4;
 		this.contactInfo = string5;
 		this.status = receivedJobRequest;
+		this.estimator = selectedEstimator;
 	}
 	
 	// *** Setters ***
@@ -56,6 +58,10 @@ public class Job {
 		this.status = status;
 	}
 	
+	public void setEstimator(String estimator) {
+		this.estimator = estimator;
+	}
+	
 	// *** Getters ***
 
 	public String getJobId() {
@@ -84,6 +90,10 @@ public class Job {
 	
 	public JobStatus getStatus() {
 		return this.status;
+	}
+	
+	public String getEstimator() {
+		return this.estimator;
 	}
 	
 }
