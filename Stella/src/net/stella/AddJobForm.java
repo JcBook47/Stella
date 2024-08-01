@@ -13,9 +13,11 @@ import javax.swing.JTextField;
 
 public class AddJobForm  extends JFrame {
 	private JobDAO jobDAO;
+	private StellaUI mainUI;
 	
-	public AddJobForm(JobDAO jobDAO) {
+	public AddJobForm(JobDAO jobDAO, StellaUI mainUI) {
 		this.jobDAO = jobDAO;
+		this.mainUI = mainUI;
 		
 		setTitle("Add Job");
 		setSize(300,400);
@@ -29,6 +31,7 @@ public class AddJobForm  extends JFrame {
 		JTextField locationField = new JTextField();
 		JTextField contactInfoField = new JTextField();
 		JComboBox<JobStatus> statusComboBox = new JComboBox<>(JobStatus.values());
+		JTextField estimatorField = new JTextField();
 		
 		add(new JLabel("Job ID:"));
 		add(jobIdField);
@@ -44,6 +47,8 @@ public class AddJobForm  extends JFrame {
 		add(contactInfoField);
 		add(new JLabel("Status:"));
 		add(statusComboBox);
+		add(new JLabel("Estimator:"));
+		add(estimatorField);
 		
 		JButton addButton = new JButton("Add Job");
 		add(new JLabel()); //Empty Cell
@@ -59,9 +64,11 @@ public class AddJobForm  extends JFrame {
 				String location = locationField.getText();
 				String contactInfo = contactInfoField.getText();
 				JobStatus status = (JobStatus) statusComboBox.getSelectedItem();
+				String estimator = estimatorField.getText();
 				
-				Job job = new Job(jobId, clientName, jobDescription, dueDate, location, contactInfo, status);
+				Job job = new Job(jobId, clientName, jobDescription, dueDate, location, contactInfo, status, estimator);
 				jobDAO.addJob(job);
+				mainUI.updateJobTable();
 				dispose();
 			}
 

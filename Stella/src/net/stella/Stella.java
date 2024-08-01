@@ -36,10 +36,10 @@ public class Stella {
 	public static void main(String[] args) {
 		Stella stella = new Stella();
 		
-		Job job = new Job("J001", "John Doe", "Roof replacement", LocalDate.of(2024, 8, 15), "123 Main St", "555-1234", JobStatus.RECEIVED_JOB_REQUEST);
+		Job job = new Job("J001", "John Doe", "Roof replacement", LocalDate.of(2024, 8, 15), "123 Main St", "555-1234", JobStatus.RECEIVED_JOB_REQUEST, "Cody");
 		//stella.addJob(job);
 		
-		Job job2 = new Job(null, null, null, null, null, null, null);
+		Job job2 = new Job(null, null, null, null, null, null, null, null);
 		job2 = stella.jobDAO.getJob("J001");
 		
 		

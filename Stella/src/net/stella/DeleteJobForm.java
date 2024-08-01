@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 
 public class DeleteJobForm extends JFrame {
     private JobDAO jobDAO;
+    private StellaUI mainUI;
 
-    public DeleteJobForm(JobDAO jobDAO) {
+    public DeleteJobForm(JobDAO jobDAO, StellaUI mainUI) {
         this.jobDAO = jobDAO;
+        this.mainUI = mainUI;
 
         setTitle("Delete Job");
         setSize(300, 200);
@@ -30,6 +32,7 @@ public class DeleteJobForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String jobId = jobIdField.getText();
                 jobDAO.deleteJob(jobId);
+                mainUI.updateJobTable();
                 dispose();
             }
         });
