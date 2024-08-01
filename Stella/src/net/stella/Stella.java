@@ -37,6 +37,12 @@ public class Stella {
 		Stella stella = new Stella();
 		
 		Job job = new Job("J001", "John Doe", "Roof replacement", LocalDate.of(2024, 8, 15), "123 Main St", "555-1234", JobStatus.RECEIVED_JOB_REQUEST);
-		stella.addJob(job);
+		//stella.addJob(job);
+		
+		Job job2 = new Job(null, null, null, null, null, null, null);
+		job2 = stella.jobDAO.getJob("J001");
+		
+		
+		System.out.println(job2.getStatus());
 	}
 }

@@ -8,7 +8,9 @@ import java.sql.SQLException;
 public class JobDAO {
 	
 	public void addJob(Job job) {
-		String sql = "INSERT INTO jobs (jobId, clientName, jobDescription, dueDate, location, contactInfo, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		
+		
+		String sql = "INSERT INTO jobs (jobid, clientname, jobdescription, duedate, location, contactinfo, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try (Connection connection = DatabaseManager.getConnection();
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, job.getJobId());
@@ -18,6 +20,8 @@ public class JobDAO {
 			stmt.setString(5, job.getLocation());
 			stmt.setString(6, job.getContactInfo());
 			stmt.setString(7, job.getStatus().name());
+			
+			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -47,4 +51,32 @@ public class JobDAO {
 	}
 	
 	//Implement updateJob and deleteJob similarly
+	
+	public void updateJob(Job job) {
+		String sql = "UPDATE jobs SET clientName = ?, jobDescription = ?, dueDate = ?, location = ?, contactInfo = ?, status = ? WHERE jobId = ?";
+	    try (Connection connection = DatabaseManager.getConnection();
+	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setString(1, job.getClientName());
+	        stmt.setString(2, job.getJobDescription());
+	        stmt.setDate(3, java.sql.Date.valueOf(job.getDueDate()));
+	        stmt.setString(4, job.getLocation());
+	        stmt.setString(5, job.getContactInfo());
+	        stmt.setString(6, job.getStatus().name());
+	        stmt.setString(7, job.getJobId());
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void deleteJob(String jobId) {
+	    String sql = "DELETE FROM jobs WHERE jobId = ?";
+	    try (Connection connection = DatabaseManager.getConnection();
+	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setString(1, jobId);
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
